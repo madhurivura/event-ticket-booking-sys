@@ -1,6 +1,7 @@
 package com.madhuri.event_ticket_booking_sys.controller;
 
 import com.madhuri.event_ticket_booking_sys.dto.ChangePasswordRequest;
+import com.madhuri.event_ticket_booking_sys.dto.UserResponseDto;
 import com.madhuri.event_ticket_booking_sys.entity.User;
 import com.madhuri.event_ticket_booking_sys.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class UserController {
     // ✅ Get all users
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping
-    public List<User> getAllUsers() {
+    public List<UserResponseDto> getAllUsers() {
         return userService.getAllUsers();
     }
 
