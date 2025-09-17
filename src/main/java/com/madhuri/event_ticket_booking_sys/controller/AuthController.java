@@ -14,13 +14,11 @@ public class AuthController {
     @Autowired
     private AuthService authService;
 
-    // Register user
     @PostMapping("/register")
     public User register(@RequestBody RegisterRequest registerRequest) {
         return authService.register(registerRequest);
     }
 
-    // Login and get JWT
     @PostMapping("/login")
     public String login(@RequestBody LoginRequest loginRequest) {
         return authService.login(loginRequest.getEmail(), loginRequest.getPassword());

@@ -1,8 +1,10 @@
 package com.madhuri.event_ticket_booking_sys.controller;
 
+import com.madhuri.event_ticket_booking_sys.dto.ChangePasswordRequest;
 import com.madhuri.event_ticket_booking_sys.entity.User;
 import com.madhuri.event_ticket_booking_sys.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,5 +44,11 @@ public class UserController {
     public String deleteUser(@PathVariable String id) {
         userService.deleteUser(id);
         return "User deleted successfully with id: " + id;
+    }
+
+    @PutMapping("/change-password")
+    public ResponseEntity<String> changePassword(@RequestBody ChangePasswordRequest request) {
+        String response = userService.changePassword(request);
+        return ResponseEntity.ok(response);
     }
 }

@@ -1,5 +1,6 @@
 package com.madhuri.event_ticket_booking_sys.service;
 
+import com.madhuri.event_ticket_booking_sys.dto.ChangePasswordRequest;
 import com.madhuri.event_ticket_booking_sys.entity.User;
 import com.madhuri.event_ticket_booking_sys.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,4 +51,18 @@ public class UserService {
             }
             userRepo.deleteById(id);
         }
+
+    public String changePassword(ChangePasswordRequest request) {
+        User user = userRepo.findByEmail(request.getEmail())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        if (!passwordEncoder.matches(request.getOldPassword(), user.getPassword())) {
+            throw new RuntimeException("Old password is incorrect");
+        }
+
+        user.setPassword(passwordEncoder.encode(request.getNewPassword()));
+        userRepo.save(user);
+
+        return "Password updated successfully";
+    }
 }
