@@ -1,14 +1,15 @@
 package com.madhuri.event_ticket_booking_sys.dto;
 
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.madhuri.event_ticket_booking_sys.entity.Ticket;
-import jakarta.persistence.*;
-import lombok.Data;
 
-import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserResponseDto {
     private String name;
     private String email;

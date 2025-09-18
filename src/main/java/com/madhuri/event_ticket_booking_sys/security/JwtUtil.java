@@ -14,7 +14,6 @@ public class JwtUtil {
     private final Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
     private final long EXPIRATION_TIME = 1000 * 60 * 60; // 1 hour
 
-    // Generate JWT for given email
     public String generateToken(String email) {
         return Jwts.builder()
                 .setSubject(email)
@@ -24,7 +23,6 @@ public class JwtUtil {
                 .compact();
     }
 
-    // Extract email from token
     public String extractEmail(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(key)
@@ -34,7 +32,6 @@ public class JwtUtil {
                 .getSubject();
     }
 
-    // Validate token
     public boolean validateToken(String token, String email) {
         return extractEmail(token).equals(email) && !isTokenExpired(token);
     }

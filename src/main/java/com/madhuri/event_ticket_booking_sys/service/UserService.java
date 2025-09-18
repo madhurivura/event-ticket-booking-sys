@@ -22,7 +22,6 @@ public class UserService implements UserDetailsService {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
-    // ✅ For Spring Security authentication
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userRepo.findByEmail(email)
@@ -35,7 +34,6 @@ public class UserService implements UserDetailsService {
                 .build();
     }
 
-    // ✅ Custom methods
     public List<UserResponseDto> getAllUsers() {
         List<User> users = userRepo.findAll();
 

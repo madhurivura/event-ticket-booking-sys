@@ -25,7 +25,6 @@ public class TicketService {
     @Autowired
     UserRepo userRepo;
 
-    // ✅ Book a ticket
     public Ticket bookTicket(TicketRequest request) {
         User user = userRepo.findById(request.getUserId())
                 .orElseThrow(() -> new RuntimeException("User not found"));
@@ -45,19 +44,16 @@ public class TicketService {
         ticket.setAttended(false);
         ticket.setTotalPrice(request.getQuantity() * event.getPricePerTicket());
 
-        // update available tickets
         event.setAvailableTickets(event.getAvailableTickets() - request.getQuantity());
         eventRepo.save(event);
 
         return ticketRepo.save(ticket);
     }
 
-    // ✅ Get all tickets for a user
     public List<Ticket> getTicketsByUser(String userId) {
         return ticketRepo.findByUserId(userId);
     }
 
-    // ✅ Cancel a ticket
     public Ticket cancelTicket(String ticketId) {
         Ticket ticket = ticketRepo.findById(ticketId)
                 .orElseThrow(() -> new RuntimeException("Ticket not found"));
@@ -76,7 +72,6 @@ public class TicketService {
         return ticketRepo.save(ticket);
     }
 
-    // ✅ Upcoming tickets (BOOKED + future events)
     public List<Ticket> getUpcomingTickets(String userId) {
         return ticketRepo.findByUserIdAndStatus(userId, "BOOKED")
                 .stream()
@@ -84,7 +79,6 @@ public class TicketService {
                 .toList();
     }
 
-    // ✅ Attended tickets (BOOKED + past events)
     public List<Ticket> getAttendedTickets(String userId) {
         return ticketRepo.findByUserIdAndStatus(userId, "BOOKED")
                 .stream()
@@ -93,7 +87,6 @@ public class TicketService {
                 .toList();
     }
 
-    // ✅ Cancelled tickets
     public List<Ticket> getCancelledTickets(String userId) {
         return ticketRepo.findByUserIdAndStatus(userId,"CANCELLED");
     }

@@ -29,14 +29,12 @@ public class EventController {
         return eventService.getAllEvents();
     }
 
-    // Read by id
     @PreAuthorize("hasAnyRole('ADMIN','USER)")
     @GetMapping("/{id}")
     public Event getById(@PathVariable String id) {
         return eventService.getById(id);
     }
 
-    // Update
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     public Event update(@PathVariable String id, @RequestBody Event event) {

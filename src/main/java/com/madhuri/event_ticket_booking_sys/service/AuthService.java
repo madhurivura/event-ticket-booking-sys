@@ -19,7 +19,6 @@ public class AuthService {
 
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-    // ✅ Register user with encrypted password
     public User register(RegisterRequest registerRequest) {
         User user = new User();
         user.setName(registerRequest.getName());
@@ -29,7 +28,6 @@ public class AuthService {
         return userRepo.save(user);
     }
 
-    // ✅ Login returns JWT
     public String login(String email, String rawPassword) {
         User user = userRepo.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("Invalid email or password"));
