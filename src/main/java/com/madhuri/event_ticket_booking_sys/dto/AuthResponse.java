@@ -4,11 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
-public class TicketRequest {
-    private String userId;
-    private String eventId;
-    private int quantity;
+public class AuthResponse {
+    private String jwtToken;
 }

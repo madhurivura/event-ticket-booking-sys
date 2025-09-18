@@ -1,5 +1,6 @@
 package com.madhuri.event_ticket_booking_sys.service;
 
+import com.madhuri.event_ticket_booking_sys.dto.AuthResponse;
 import com.madhuri.event_ticket_booking_sys.dto.RegisterRequest;
 import com.madhuri.event_ticket_booking_sys.entity.User;
 import com.madhuri.event_ticket_booking_sys.repository.UserRepo;
@@ -28,7 +29,7 @@ public class AuthService {
         return userRepo.save(user);
     }
 
-    public String login(String email, String rawPassword) {
+    public AuthResponse login(String email, String rawPassword) {
         User user = userRepo.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("Invalid email or password"));
 
@@ -36,6 +37,6 @@ public class AuthService {
             throw new RuntimeException("Invalid email or password");
         }
 
-        return "token: "+ jwtUtil.generateToken(user.getEmail());
+        return new AuthResponse(jwtUtil.generateToken(user.getEmail()));
     }
 }
